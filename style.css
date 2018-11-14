@@ -1,0 +1,9 @@
+nav, footer {
+    background-color: #343a40;
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
