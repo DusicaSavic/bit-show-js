@@ -14,16 +14,45 @@ const setupOnClickListeners = () => {
 }
 
 const onLinkClickHandler = (e) => {
-    e.preventDefault();
-    const movieId = $(e.currentTarget).attr('data-id');
+    const showId = $(e.currentTarget).attr('data-id');
+    // console.log(e.currentTarget);
+
+    // save id to LS
+    localStorage.setItem('id', showId);
 
 
-    console.log(movieId);
+    // redirect to show details page location object
+    const $link = $(e.currentTarget);
+
+    // console.log($link);
+    $link.attr('href', './info_page.html');
+
+
+    // v2.
+    // e.preventDefault();
+    // window.location.href = './info_page.html';
+
 }
 
 const onSuccessResponse = (showsArrayToDisplay) => {
-    ui.createMovieCard(showsArrayToDisplay);
+    ui.createShowCard(showsArrayToDisplay);
 }
 
 
-export { init }
+//// Info_page
+
+const initInfoPage = () => {
+
+    // load ID from LS
+    const showId = localStorage.getItem('id');
+    console.log(showId);
+
+    console.log("App initialized");
+    data.fetchDataSingleShow(showId);
+}
+
+
+export {
+    init,
+    initInfoPage
+}

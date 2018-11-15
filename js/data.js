@@ -1,9 +1,11 @@
-import Show from './Enitites/Show.js';
+import Show from './Entities/Show.js';
+import SingleShow from './Entities/SingleShow.js'
+import Season from './Entities/Season.js';
+import cast from './Entities/Cast.js'
+import Cast from './Entities/Cast.js';
 
+// baza svih serija
 const BASE_ENDPOINT = 'http://api.tvmaze.com/shows';
-
-
-
 
 const fetchData = (onSuccess) => {
 
@@ -49,6 +51,44 @@ const fetchData = (onSuccess) => {
 
 }
 
+
+
+const fetchDataSingleShow = (id) => {
+
+    const SINGLE_SHOW_ENDPOINT = `${BASE_ENDPOINT}/${id}?embed[]=seasons&embed[]=cast`
+
+    const requestData = $.ajax({
+        url: SINGLE_SHOW_ENDPOINT,
+        method: 'GET'
+    });
+
+
+    requestData.done((response) => {
+        console.log("server response onDone", response);
+        const { name, image, _embedded } = response;
+
+        const seasons = _embedded.seasons;
+        const cast = _embedded.cast;
+        console.log(cast);
+
+        const seasonsList = seasons.map(function (singleSeason) {
+            const { number, premiereDate, endDate } = singleSeason;
+            return new Season(number, premiereDate, endDate);
+        });
+
+        const castList = cast.map(function (singleCast) {
+            const { person } = singleCast;
+            return new Cast(person.name);
+        });
+
+        const singleShow = new SingleShow(name, image, seasonsList, castList);
+        console.log(singleShow);
+
+
+    });
+}
+
 export {
-    fetchData
+    fetchData,
+    fetchDataSingleShow
 }

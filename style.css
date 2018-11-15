@@ -3,7 +3,33 @@ nav, footer {
     color: white;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 footer {
     text-align: center;
     padding: 20px;
+}
+
+.card {
+    margin: 20px;
+}
+
+.show-title {
+    text-align: center;
+    padding: 20px;
+}
+
+.show-image {
+    width: 100%;
+}
+
+.show-details {
+    margin: 20px 0;
+
+}
+
+.show-info {
+    margin: 20px 0;
 }
